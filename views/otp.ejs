@@ -1,0 +1,13 @@
+<%- include("header") -%>
+
+<div class="container-fluid main-content d-flex align-items-center">
+    <div class="row justify-content-center">
+        <form action="/vote" method="post" class="login">
+            <label for="otp">Enter OTP</label><br>
+            <input type="number" name="otp" id="otp"><br><br>
+            <input type="submit" value="Verify">
+        </form>
+    </div>
+</div>
+
+<%- include("footer") -%>

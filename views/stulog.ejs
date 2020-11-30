@@ -1,0 +1,13 @@
+<%- include("header") -%>
+
+<div class="container-fluid main-content d-flex align-items-center">
+    <div class="row justify-content-center">
+        <form action="/otp" method="post" class="login">
+            <label for="email">Enter University Email</label><br>
+            <input type="email" name="email" id="email"><br><br>
+            <input type="submit" value="Get OTP">
+        </form>
+    </div>
+</div>
+
+<%- include("footer") -%>

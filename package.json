@@ -1,0 +1,23 @@
+{
+  "name": "online-election-portal",
+  "version": "1.0.0",
+  "description": "Student Council Election Portal",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AryanFelix/Online-Election-Portal.git"
+  },
+  "author": "AryanFelix",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AryanFelix/Online-Election-Portal/issues"
+  },
+  "homepage": "https://github.com/AryanFelix/Online-Election-Portal#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}

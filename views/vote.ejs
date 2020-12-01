@@ -7,7 +7,7 @@
                 <h3><%=distinctPos[i]%></h3>
                 <%  found.forEach(function(item){ %>
                     <%    if(item.position == distinctPos[i]){ %>
-                            <input type="radio" value="<%=item._id%>" name="<%=i%>" id=""><%=item.name%><br>
+                            <input type="radio" value="<%=item._id%>" name="<%=i%>" id="" checked="checked"><%=item.name%><br>
                     <%    } %>
                 <%  }) %>   
             <%  } %>

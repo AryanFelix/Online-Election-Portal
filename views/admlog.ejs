@@ -1,0 +1,15 @@
+<%- include("header") -%>
+
+<div class="container-fluid main-content d-flex align-items-center" style="min-height: 75vh;">
+    <div class="row justify-content-center">
+        <form action="/adminverify" method="post" class="login">
+            <label for="username">Enter Username</label><br>
+            <input type="text" name="username" id="username"><br><br>
+            <label for="pass">Enter Password</label><br>
+            <input type="password" name="pass" id="pass"><br><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</div>
+
+<%- include("footer") -%>

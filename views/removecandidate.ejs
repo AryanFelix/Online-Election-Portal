@@ -1,0 +1,15 @@
+<%- include("header") -%>
+
+<div class="container-fluid main-content d-flex align-items-center" style="min-height: 75vh;">
+    <div class="row justify-content-center">
+        <form action="/removingcan" method="post" class="login">
+            <label for="name">Enter Candidate Name</label><br>
+            <input type="text" name="name" id="name"><br><br>
+            <label for="position">Enter Position</label><br>
+            <input type="text" name="position" id="position"><br><br>
+            <input type="submit" value="Remove">
+        </form>
+    </div>
+</div>
+
+<%- include("footer") -%>

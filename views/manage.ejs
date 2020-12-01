@@ -1,0 +1,26 @@
+<%- include("header") -%>
+
+<div class="container-fluid" style="text-align: center;">
+    <p style="color: red; padding-top: 10px;"><%= msg %></p>
+</div>
+<div class="container-fluid main-content d-flex align-items-center"style="min-height: 75vh;">
+    <div class="row d-flex">
+        <div class="col d-flex justify-content-end">
+            <form action="/addcan" method="GET">
+                <button type="submit" class="btn btn-success btn-lg">Add Candidate</button>
+            </form>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <form action="/remcan" method="GET">
+                <button type="submit" class="btn btn-warning btn-lg">Remove Candidate</button>
+            </form>
+        </div>
+        <div class="col d-flex justify-content-start">
+            <form action="/reset" method="POST">
+                <button type="submit" class="btn btn-danger btn-lg">Reset Database</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include("footer") -%>

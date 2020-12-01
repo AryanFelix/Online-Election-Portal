@@ -2,7 +2,23 @@
 
 <div class="container-fluid main-content d-flex align-items-center">
     <div class="row justify-content-center">
-        <h3>Success!</h3>
+        <form action="/results" method="post">
+            <% for(var i=0; i<distinctPos.length; i++) { %>
+                <br>
+                <h3><%=distinctPos[i]%></h3>
+                <br>
+                <%  found.forEach(function(item){ %>
+                    <%    if(item.position == distinctPos[i]){ %>
+                        <table>
+                            <tr>
+                                <td style="min-width: 200px;"><%=item.name%></td>
+                                <td><%=item.votes%></td>
+                            </tr>
+                        </table>
+                    <%    } %>
+                <%  }) %>   
+            <%  } %>
+        </form>
     </div>
 </div>
 

@@ -77,26 +77,27 @@ app.post("/otp", function(req, res) {
                 }
                 else {
                     var transport = nodemailer.createTransport({
-                        name: "smtp.mailtrap.io",
-                        host: "smtp.mailtrap.io",
-                        port: 2525,
+                        service: "gmail",
                         auth: {
-                          user: "6d53c54308dd2c",
-                          pass: "dd431d7727c793"
+                          user: "innovision.smit2@gmail.com",
+                          pass: "Smit@2020"
                         }
                     });
                       
                     var mailOptions = {
-                        from: '"Elect-ron Services"<>',
+                        from: '"Elect-ron Services"<innovision.smit2@gmail.com>',
                         to: JSON.stringify(req.body.email),
                         subject: 'Verify OTP',
                         text: JSON.stringify(OTP)
                     };
-                      
+                    
+                    voter.findOneAndUpdate({email: rec},{flag: 1}, function(err, found){
+                    })
+
                     transport.sendMail(mailOptions, function(error, info){
                         if (error) {
                             console.log(error);
-                            res.render('index')
+                            res.render('index', {msg: msg})
                             return
                         } 
                         else {
@@ -140,19 +141,35 @@ app.post("/vote", function(req, res) {
 
 
 
-app.post("/", function(req, res) {
+app.post("/results", function(req, res) {
     for(let i=0; i<poslen; i++) {
         let reqid = req.body[i]
         console.log(poslen)
         console.log(reqid)
         candidate.findOneAndUpdate({_id: reqid},{$inc : {votes : 1}}, function(err, found){
-            if(!err) {
-                msg = "Thank You For Voting!"
-                res.render("index", {msg: msg})
-                return
-            }
         })
     }
+    msg = 'Thank You For Voting! Check The Tally For Current Results.'
+    res.render('index', {msg: msg})
+})
+
+app.get("/tally", function(req, res){
+    candidate.find({}, function(err, found) {
+        if(!err) {
+            let distinctPos = []
+            count = 0
+            distinctPos.push(found[0].position)
+            for(var i=1; i<found.length; i++){
+                if(found[i].position != distinctPos[count]) {
+                    distinctPos.push(found[i].position)
+                    count++
+                }
+            }
+            poslen = count + 1
+            res.render("result", {found: found, distinctPos: distinctPos})
+            return
+        }
+    })
 })
 
 

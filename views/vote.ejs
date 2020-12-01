@@ -2,7 +2,19 @@
 
 <div class="container-fluid main-content d-flex align-items-center">
     <div class="row justify-content-center">
-        <h1>Login Successful!</h1>
+        <form action="/" method="post">
+            <% for(var i=0; i<distinctPos.length; i++) { %>
+            <h3><%=distinctPos[i]%></h3>
+            <div class="item">
+            <%  found.forEach(function(item){ %>
+            <%    if(item.position == distinctPos[i]){ %>
+                    <input type="radio" value="<%=item._id%>" name="<%=distinctPos[i]%>" id=""><%=item.name%><br>
+            <%    } %>
+            <%  }) %>   
+            </div>
+            <%  } %>
+            <input type="submit" value="Submit Votes">
+        </form>
     </div>
 </div>
 

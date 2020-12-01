@@ -83,3 +83,11 @@ footer a:hover {
 form.login {
     text-align: center;
 }
+
+.item {
+    padding: 10px;
+}
+
+.item input {
+    padding: 5px;
+}

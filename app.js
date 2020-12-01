@@ -12,7 +12,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-mongoose.connect("mongodb+srv://admin-aryan:test123@election-database.xbzb6.mongodb.net/election?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect("mongodb+srv://admin-aryan:test123@election-database.xbzb6.mongodb.net/election?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 
 const voterSchema = {
     email: String,
@@ -28,13 +28,16 @@ const candidateSchema = {
 const candidate = mongoose.model("candidate", candidateSchema);
 
 let msg = ""
+let poslen = 3
 
 app.get("/", function(req, res) {
     res.render("index", {msg: msg})
+    return
 })
 
 app.get("/stulog", function(req, res) {
     res.render("stulog")
+    return
 })
 
 let OTP = (Math.random().toFixed(6))*1000000
@@ -94,10 +97,12 @@ app.post("/otp", function(req, res) {
                         if (error) {
                             console.log(error);
                             res.render('index')
+                            return
                         } 
                         else {
                             console.log('Email Sent: ' + info.response);
                             res.render("otp")
+                            return
                         }
                     });
                 }
@@ -120,28 +125,33 @@ app.post("/vote", function(req, res) {
                         count++
                     }
                 }
+                poslen = count + 1
                 res.render("vote", {found: found, distinctPos: distinctPos})
+                return
             }
         })
     }
     else {
         msg = 'Invalid OTP'
         res.render('index', {msg: msg})
+        return
     }
 })
 
+
+
 app.post("/", function(req, res) {
-    
-        for(let i=0; i<distinctPos.length; i++) {
-            let temp = req.body.distinctPos[i]
-            console.log(distinctPos)
-            console.log(temp)
-            candidate.findOneAndUpdate({_id: temp},{votes: votes+1}, function(err, found){
-                if(!err) {
-                    msg = ""
-                    res.render("/", {msg:msg})
-                }
-            })
+    for(let i=0; i<poslen; i++) {
+        let reqid = req.body[i]
+        console.log(poslen)
+        console.log(reqid)
+        candidate.findOneAndUpdate({_id: reqid},{$inc : {votes : 1}}, function(err, found){
+            if(!err) {
+                msg = "Thank You For Voting!"
+                res.render("index", {msg: msg})
+                return
+            }
+        })
     }
 })
 

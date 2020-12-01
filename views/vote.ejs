@@ -4,14 +4,12 @@
     <div class="row justify-content-center">
         <form action="/" method="post">
             <% for(var i=0; i<distinctPos.length; i++) { %>
-            <h3><%=distinctPos[i]%></h3>
-            <div class="item">
-            <%  found.forEach(function(item){ %>
-            <%    if(item.position == distinctPos[i]){ %>
-                    <input type="radio" value="<%=item._id%>" name="<%=distinctPos[i]%>" id=""><%=item.name%><br>
-            <%    } %>
-            <%  }) %>   
-            </div>
+                <h3><%=distinctPos[i]%></h3>
+                <%  found.forEach(function(item){ %>
+                    <%    if(item.position == distinctPos[i]){ %>
+                            <input type="radio" value="<%=item._id%>" name="<%=i%>" id=""><%=item.name%><br>
+                    <%    } %>
+                <%  }) %>   
             <%  } %>
             <input type="submit" value="Submit Votes">
         </form>

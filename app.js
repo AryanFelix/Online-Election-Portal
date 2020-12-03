@@ -6,6 +6,8 @@ const ejs = require("ejs");
 const mongoose = require('mongoose').set("debug", true);
 const _ = require("lodash")
 const nodemailer = require('nodemailer');
+const upload = require("express-fileupload");
+const csvtojson = require("csvtojson");
 
 
 const app = express();
@@ -336,6 +338,53 @@ app.post("/reset", function (req, res) {
         msg: msg
     })
     return
+})
+
+let csvData = "test"
+app.use(upload())
+
+app.get("/import", function (req, res) {
+    res.render("csv")
+    return
+})
+
+app.post("/imported", function (req, res) {
+    try {
+        if (!req.files) {
+            msg = "No File Uploaded"
+            res.render("manage", {
+                msg: msg
+            });
+        } else {
+            let csvfile = req.files.csvfile
+            csvfile.mv("./uploads/" + csvfile.name)
+            csvtojson().fromFile("./uploads/" + csvfile.name)
+                .then(source => {
+                    console.log(source[0].email)
+                    for (let i = 0; i < source.length; i++) {
+                        let email = source[i].email
+                        let flag = source[i].flag
+                        voter.findOne({
+                            email: email
+                        }, function (err, found) {
+                            if (!err) {
+                                if (!found) {
+                                    let vot = new voter({
+                                        email: email,
+                                        flag: flag
+                                    })
+                                    vot.save()
+                                }
+                            }
+                        })
+                    }
+                    msg = "Successfully Imported Voter List"
+                    res.render("manage", {
+                        msg: msg
+                    })
+                })
+        }
+    } finally {}
 })
 
 app.listen(3000, function (req, res) {

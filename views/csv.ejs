@@ -1,0 +1,13 @@
+<%- include("header") -%>
+
+<div class="container-fluid main-content d-flex align-items-center" style="min-height: 75vh;">
+    <div class="row justify-content-center">
+        <form method="post" enctype="multipart/form-data" action="/imported" class="login">
+            <label for="csvfile">Upload CSV File</label><br><br>
+            <input type="file" class="form-control-file" name="csvfile" id="csvfile"><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<%- include("footer") -%>

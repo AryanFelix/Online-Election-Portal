@@ -6,8 +6,6 @@ const ejs = require("ejs");
 const mongoose = require('mongoose').set("debug", true);
 const _ = require("lodash")
 const nodemailer = require('nodemailer');
-const upload = require("express-fileupload");
-const csvtojson = require("csvtojson");
 
 
 const app = express();
@@ -16,7 +14,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(express.static("public"));
-mongoose.connect("mongodb+srv://admin-aryan:test123@election-database.xbzb6.mongodb.net/election?retryWrites=true&w=majority", {
+mongoose.connect("ENTER MONGODB SRV LINK HERE", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
@@ -100,13 +98,13 @@ app.post("/otp", function (req, res) {
                     var transport = nodemailer.createTransport({
                         service: "gmail",
                         auth: {
-                            user: "innovision.smit2@gmail.com",
-                            pass: "Smit@2020"
+                            user: "ENTER USER EMAIL HERE",
+                            pass: "ENTER USER PASSWORD"
                         }
                     });
 
                     var mailOptions = {
-                        from: '"Elect-ron Services"<innovision.smit2@gmail.com>',
+                        from: '"Elect-ron Services"<>',
                         to: JSON.stringify(req.body.email),
                         subject: 'Verify OTP',
                         text: JSON.stringify(OTP)
@@ -340,59 +338,6 @@ app.post("/reset", function (req, res) {
     return
 })
 
-let csvData = "test"
-app.use(upload())
-
-app.get("/import", function (req, res) {
-    res.render("csv")
-    return
+app.listen(3000, function (req, res) {
+    console.log("Server Started on Port 3000")
 })
-
-app.post("/imported", function (req, res) {
-    try {
-        if (!req.files) {
-            msg = "No File Uploaded"
-            res.render("manage", {
-                msg: msg
-            });
-        } else {
-            let csvfile = req.files.csvfile
-            csvfile.mv("./uploads/" + csvfile.name)
-            csvtojson().fromFile("./uploads/" + csvfile.name)
-                .then(source => {
-                    console.log(source[0].email)
-                    for (let i = 0; i < source.length; i++) {
-                        let email = source[i].email
-                        let flag = source[i].flag
-                        voter.findOne({
-                            email: email
-                        }, function (err, found) {
-                            if (!err) {
-                                if (!found) {
-                                    let vot = new voter({
-                                        email: email,
-                                        flag: flag
-                                    })
-                                    vot.save()
-                                }
-                            }
-                        })
-                    }
-                    msg = "Successfully Imported Voter List"
-                    res.render("manage", {
-                        msg: msg
-                    })
-                })
-        }
-    } finally {}
-})
-
-let port = process.env.PORT;
-if (port == null || port == ""){
-  port = 3000
-}
-
-
-app.listen(port, function() {
-  console.log("Server Started");
-});

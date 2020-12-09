@@ -2,7 +2,7 @@
   <img width="100px" src="https://icons-for-free.com/iconfiles/png/512/poll+18px-131987943364213195.png">
 </p>
 
-# Team 14 | Elect-ron : The E-Voting App for Student Body Elections |
+# Elect-ron : The E-Voting App for Student Body Elections |
 
 <br>
 
@@ -70,6 +70,7 @@
 #### Architecture Diagram
 
 * System Administrator Screen Flow Diagram
+
 ![System Administratr Screen Flow Diagram](Screenshots/Admin1.png)
 
 * Student Screen Flow Diagram

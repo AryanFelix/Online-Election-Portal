@@ -86,11 +86,6 @@ An overview of:
 * Setup/Installations required to run the solution
     * Git, Node, MongoDB Atlas account, IDE
 
-* Instructions to run the code : 
-    * Clone the repository
-    *       npm i
-    *       node app.js
-
 ### Screenshots
 
 * Landing Page
